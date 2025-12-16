@@ -1,0 +1,54 @@
+iPhone 14: Hướng dẫn sử dụng AirPlay và Phản chiếu màn hình
+
+iPhone 14 hỗ trợ công nghệ AirPlay của Apple, cho phép bạn truyền nội dung không dây từ iPhone sang các thiết bị khác như Apple TV, TV thông minh hỗ trợ AirPlay, hoặc Mac.
+
+AirPlay là gì?
+AirPlay là công nghệ độc quyền của Apple cho phép truyền nội dung âm thanh, video, và hình ảnh không dây giữa các thiết bị Apple. Nó sử dụng kết nối Wi-Fi hoặc Bluetooth để kết nối giữa iPhone và thiết bị nhận.
+
+Cách bật AirPlay trên iPhone 14:
+
+1. Phản chiếu toàn bộ màn hình (Screen Mirroring):
+   - Vuốt từ góc trên bên phải xuống để mở Trung tâm điều khiển (Control Center)
+   - Chạm vào biểu tượng "Phản chiếu màn hình" (Screen Mirroring) - biểu tượng có hình hai hình chữ nhật chồng lên nhau
+   - Chọn thiết bị bạn muốn phản chiếu (Apple TV, TV thông minh, hoặc Mac)
+   - Nhập mã PIN nếu được yêu cầu
+
+2. Phát video/âm thanh qua AirPlay:
+   - Mở ứng dụng chứa nội dung bạn muốn phát (Photos, Music, YouTube, Netflix, v.v.)
+   - Chạm vào biểu tượng AirPlay trong ứng dụng (thường là biểu tượng có hình tam giác và sóng)
+   - Chọn thiết bị bạn muốn phát nội dung
+
+Các ứng dụng hỗ trợ AirPlay:
+- Photos: Xem ảnh trên TV
+- Music: Phát nhạc qua loa AirPlay
+- Safari: Phát video web trên TV
+- YouTube, Netflix, Disney+: Phát video trực tuyến
+- Các ứng dụng khác có tích hợp AirPlay
+
+Yêu cầu:
+- iPhone 14 và thiết bị nhận phải cùng kết nối Wi-Fi (hoặc Bluetooth cho một số thiết bị)
+- Thiết bị nhận phải hỗ trợ AirPlay (Apple TV, TV thông minh, loa AirPlay, hoặc Mac)
+- Cả hai thiết bị phải được bật và ở gần nhau
+
+Hướng dẫn bật tính năng chiếu hình ảnh:
+Để sử dụng tính năng chiếu hình ảnh từ iPhone 14, bạn có thể làm như sau:
+
+1. Bật tính năng phản chiếu màn hình (Screen Mirroring):
+   - Vuốt từ góc trên bên phải xuống để mở Trung tâm điều khiển
+   - Chạm vào biểu tượng "Phản chiếu màn hình" 
+   - Chọn thiết bị bạn muốn chiếu (TV, máy chiếu, hoặc màn hình khác)
+   - Hình ảnh từ iPhone sẽ được chiếu lên thiết bị đã chọn
+
+2. Tính năng này cho phép bạn chiếu nội dung từ iPhone lên màn hình lớn hơn như TV hoặc máy chiếu thông qua kết nối không dây hoặc có dây.
+
+Lưu ý:
+- AirPlay hoạt động tốt nhất khi cả hai thiết bị cùng mạng Wi-Fi ổn định
+- Bạn có thể chiếu hình ảnh, video, hoặc toàn bộ màn hình iPhone
+
+Xử lý sự cố:
+- Nếu không thấy thiết bị trong danh sách AirPlay, hãy đảm bảo cả hai thiết bị cùng mạng Wi-Fi
+- Khởi động lại Wi-Fi trên iPhone 14 nếu kết nối không ổn định
+- Đảm bảo TV hoặc thiết bị nhận đã bật AirPlay trong cài đặt
+
+AirPlay là một tính năng tiện lợi giúp bạn dễ dàng chia sẻ nội dung từ iPhone 14 lên màn hình lớn hơn mà không cần dây cáp.
+

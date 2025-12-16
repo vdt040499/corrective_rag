@@ -1,0 +1,22 @@
+iPhone 14: Hướng dẫn sử dụng Cần gạt rung/chuông (Mute Switch)
+
+Trên iPhone 14 và các phiên bản trước đó, Apple đã tích hợp một cần gạt vật lý ở cạnh trái của thiết bị, được gọi là "Cần gạt rung/chuông" hoặc "Mute Switch" trong tiếng Anh.
+
+Vị trí của cần gạt:
+Cần gạt này nằm ở cạnh trái của iPhone 14, phía trên nút điều chỉnh âm lượng. Nó là một thanh kim loại nhỏ có thể gạt lên hoặc xuống.
+
+Cách sử dụng:
+Để bật chế độ im lặng (Silent Mode), bạn gạt cần gạt xuống dưới. Khi ở chế độ này, iPhone sẽ không phát ra tiếng chuông hoặc âm thanh thông báo, nhưng vẫn rung khi có cuộc gọi hoặc thông báo đến.
+
+Để tắt chế độ im lặng và bật lại tiếng chuông (Ring Mode), bạn gạt cần gạt lên trên. Khi ở chế độ này, iPhone sẽ phát ra âm thanh chuông và thông báo bình thường.
+
+Trạng thái hiển thị:
+Khi cần gạt ở vị trí im lặng (gạt xuống), bạn sẽ thấy một dấu chấm đỏ trên màn hình khóa hoặc một biểu tượng chuông bị gạch chéo trong Trung tâm điều khiển (Control Center).
+
+Lưu ý:
+- Cần gạt này chỉ có trên iPhone 14 và các phiên bản trước đó
+- Đây là một tính năng vật lý, không thể điều khiển bằng phần mềm
+- Khi cần gạt ở chế độ im lặng, iPhone vẫn có thể phát ra âm thanh từ các ứng dụng cụ thể nếu người dùng đã cấu hình riêng
+
+Tính năng này giúp người dùng nhanh chóng chuyển đổi giữa chế độ im lặng và có tiếng mà không cần mở khóa màn hình hoặc vào Cài đặt.
+

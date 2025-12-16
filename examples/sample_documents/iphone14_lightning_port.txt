@@ -1,0 +1,39 @@
+iPhone 14: Thông tin về cổng sạc Lightning
+
+iPhone 14 và tất cả các dòng iPhone trước đó (từ iPhone 5 trở đi) đều sử dụng cổng sạc Lightning của Apple.
+
+Đặc điểm kỹ thuật:
+- Tên chính thức: Lightning Connector
+- Nhà sản xuất: Apple Inc.
+- Kiểu kết nối: Cổng 8 chân, có thể cắm theo cả hai chiều (reversible)
+- Kích thước: Nhỏ gọn hơn nhiều so với cổng 30-pin cũ
+
+Công dụng:
+Cổng Lightning trên iPhone 14 được sử dụng cho nhiều mục đích:
+1. Sạc pin: Kết nối với bộ sạc để sạc pin cho thiết bị
+2. Truyền dữ liệu: Đồng bộ dữ liệu giữa iPhone và máy tính qua iTunes hoặc Finder (trên macOS)
+3. Kết nối phụ kiện: Kết nối với các phụ kiện như tai nghe có dây, bộ chuyển đổi âm thanh, card reader
+
+Tốc độ sạc:
+iPhone 14 hỗ trợ sạc nhanh với công suất tối đa lên đến 20W khi sử dụng bộ sạc tương thích. Tuy nhiên, bộ sạc đi kèm trong hộp chỉ là bộ sạc 5W tiêu chuẩn.
+
+Tốc độ truyền dữ liệu:
+Cổng Lightning trên iPhone 14 hỗ trợ tốc độ truyền dữ liệu USB 2.0, tương đương khoảng 480 Mbps. Đây là tốc độ khá chậm so với các chuẩn hiện đại như USB 3.0 hoặc USB-C.
+
+Phụ kiện tương thích:
+Tất cả các phụ kiện Lightning được sản xuất cho iPhone trước đó đều tương thích với iPhone 14, bao gồm:
+- Cáp sạc Lightning
+- Bộ chuyển đổi Lightning to 3.5mm (cho tai nghe có dây)
+- Bộ chuyển đổi Lightning to USB-A, Lightning to HDMI
+- Dock sạc Lightning
+
+Lịch sử:
+Apple giới thiệu cổng Lightning lần đầu tiên vào năm 2012 với iPhone 5, thay thế cổng 30-pin cũ. Kể từ đó, Lightning đã trở thành tiêu chuẩn cho tất cả các thiết bị iOS của Apple trong hơn một thập kỷ.
+
+Lưu ý:
+- Cổng Lightning là độc quyền của Apple
+- Cáp Lightning chính hãng thường đắt hơn cáp của bên thứ ba
+- Apple yêu cầu các nhà sản xuất phụ kiện phải được chứng nhận MFi (Made for iPhone/iPad) để đảm bảo tương thích
+
+iPhone 14 tiếp tục sử dụng cổng Lightning, giữ nguyên tiêu chuẩn đã được Apple sử dụng trong nhiều năm qua.
+
