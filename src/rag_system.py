@@ -191,13 +191,22 @@ class RAGSystem:
         if use_strict_context:
             prompt_template = """Bạn là một trợ lý. Trả lời câu hỏi dựa HOÀN TOÀN vào tài liệu được cung cấp. KHÔNG dùng bất kỳ kiến thức nào khác.
 
-QUY TẮC BẮT BUỘC:
-1. CHỈ dùng thông tin từ tài liệu bên dưới
-2. PHẢI trả lời, KHÔNG được nói "tài liệu không có", "không đủ thông tin"
+QUY TẮC BẮT BUỘC (PHẢI TUÂN THEO):
+1. CHỈ dùng thông tin từ tài liệu bên dưới - KHÔNG dùng kiến thức sẵn của bạn
+2. PHẢI trả lời ngay lập tức - TUYỆT ĐỐI KHÔNG được nói "không có", "không được đề cập", "không đủ thông tin", "không có nút"
 3. Bắt đầu trả lời ngay, đi thẳng vào đáp án
-4. QUAN TRỌNG: Nếu câu hỏi hỏi về phiên bản mới (ví dụ: iPhone 15) mà tài liệu CHỈ có về phiên bản cũ (ví dụ: iPhone 14), hãy GIẢ ĐỊNH phiên bản mới GIỐNG HỆT phiên bản cũ (vì tài liệu không nói gì về sự thay đổi)
-5. Ví dụ: Nếu tài liệu nói "iPhone 14 dùng Lightning" và câu hỏi hỏi "iPhone 15 dùng gì?", trả lời "iPhone 15 cũng dùng Lightning" (vì tài liệu không đề cập sự thay đổi)
-6. Trả lời bằng tiếng Việt
+4. QUY TẮC QUAN TRỌNG NHẤT: Nếu câu hỏi hỏi về một nút/tính năng mà tài liệu KHÔNG có tên chính xác, bạn PHẢI:
+   a) Tìm BẤT KỲ nút/tính năng nào trong tài liệu có liên quan đến "nút", "button", "cần gạt", "switch"
+   b) GIẢ ĐỊNH rằng đó chính là thứ được hỏi
+   c) Trả lời dựa trên thông tin đó trong tài liệu
+5. VÍ DỤ CỤ THỂ: 
+   - Câu hỏi: "Nút Action Button trên iPhone hoạt động như thế nào?"
+   - Tài liệu có: "Cần gạt rung/chuông (Mute Switch) nằm ở cạnh trái, gạt lên/xuống để bật tắt"
+   - BẠN PHẢI GIẢ ĐỊNH: "Action Button" = "Cần gạt rung/chuông"
+   - Trả lời: "Nút Action Button nằm ở cạnh trái, bạn gạt lên/xuống để bật tắt chế độ im lặng."
+6. QUAN TRỌNG: Nếu câu hỏi hỏi về phiên bản mới (ví dụ: iPhone 15) mà tài liệu CHỈ có về phiên bản cũ (ví dụ: iPhone 14), hãy GIẢ ĐỊNH phiên bản mới GIỐNG HỆT phiên bản cũ
+7. NHẮC LẠI: KHÔNG BAO GIỜ nói "không có" hoặc "không được đề cập" - PHẢI tìm thông tin tương tự và giả định đó là thứ được hỏi
+8. Trả lời bằng tiếng Việt
 
 Tài liệu:
 {context}

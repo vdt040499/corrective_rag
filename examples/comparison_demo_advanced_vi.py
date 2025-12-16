@@ -130,6 +130,75 @@ def print_comparison_table(trad_result: dict, crag_result: dict, case_title: str
                 console.print(f"  [{color}]{icon} Document {i}:[/{color}] {preview}")
 
 
+def demo_case_0_all_relevant():
+    """Case 0: All Documents Relevant - Baseline"""
+    print_case_header(
+        0,
+        "All Documents Relevant (Baseline)",
+        "Baseline case where all retrieved documents are relevant and both systems answer correctly."
+    )
+    
+    # Initialize systems
+    traditional_rag = RAGSystem()
+    corrective_rag = CorrectiveRAGSystem(
+        relevance_threshold=0.6,
+        use_web_search=True
+    )
+    
+    if not traditional_rag.load_vectorstore():
+        console.print("[yellow]Không tìm thấy vector store. Vui lòng thêm documents trước:[/yellow]")
+        console.print("[yellow]uv run python cli.py add-directory examples/sample_documents[/yellow]")
+        return
+    
+    corrective_rag.load_vectorstore()
+    traditional_rag.setup_qa_chain(retriever_k=4, use_strict_context=True)
+    
+    # Question that matches documents in DB
+    question = "iPhone 14 có những tính năng và cổng kết nối gì?"
+    console.print(f"[bold]Câu hỏi:[/bold] [yellow]{question}[/yellow]")
+    console.print("[dim]Lưu ý: Câu hỏi này bao phủ nhiều chủ đề trong DB (cần gạt rung/chuông, cổng Lightning, AirPlay). Tất cả documents retrieved nên là relevant.[/dim]\n")
+    
+    # Traditional RAG
+    console.print("[blue]🔄 Traditional RAG đang xử lý...[/blue]")
+    with console.status("[bold blue]Querying Traditional RAG..."):
+        trad_result = traditional_rag.query(question)
+    
+    # Corrective RAG
+    console.print("[green]🔄 Corrective RAG đang xử lý...[/green]")
+    with console.status("[bold green]Querying Corrective RAG..."):
+        crag_result = corrective_rag.query(question, k=4, return_diagnostics=True)
+    
+    # Comparison
+    print_comparison_table(trad_result, crag_result, "Case 0: All Documents Relevant")
+    
+    # Analysis
+    console.print("\n[bold cyan]📊 Phân tích chi tiết:[/bold cyan]\n")
+    
+    console.print(Panel(
+        "[bold green]Traditional RAG (Thành công):[/bold green]\n"
+        "• Tìm thấy các tài liệu về iPhone 14 (cần gạt, cổng Lightning, AirPlay)\n"
+        "• Tất cả documents đều liên quan đến câu hỏi\n"
+        "• Trả lời đúng và đầy đủ về các tính năng và cổng kết nối\n"
+        "• ✅ Hoạt động tốt khi documents đều relevant\n\n"
+        "[bold green]Corrective RAG (Thành công - Không cần web search):[/bold green]\n"
+        "• Retrieve: Lấy các tài liệu về iPhone 14\n"
+        "• Evaluate: Tất cả documents đều được đánh giá là relevant\n"
+        "• Filter: Giữ lại tất cả documents (relevance ratio cao)\n"
+        "• Action: KHÔNG cần Web Search vì documents đủ liên quan\n"
+        "• Generate: Tạo câu trả lời từ các documents relevant\n"
+        "• Trả lời đúng và đầy đủ về các tính năng và cổng kết nối\n"
+        "• ✅ ƯU ĐIỂM: Hoạt động hiệu quả khi documents đều relevant, không cần web search",
+        title="[bold]Case 0 Analysis[/bold]",
+        border_style="green"
+    ))
+    
+    if "diagnostics" in crag_result:
+        diag = crag_result["diagnostics"]
+        console.print(f"[bold green]✅ Corrective RAG đã giữ lại {diag['relevant_count']}/{diag['total_retrieved']} documents (relevance ratio: {diag['relevance_ratio']:.1%})[/bold green]")
+        if not diag["used_web_search"]:
+            console.print("[bold green]✅ Web search không cần thiết vì documents đủ liên quan[/bold green]")
+
+
 def demo_case_1_outdated_data():
     """Case 1: Handling Outdated Data"""
     print_case_header(
@@ -177,17 +246,38 @@ def demo_case_1_outdated_data():
     # Analysis
     console.print("\n[bold cyan]📊 Phân tích chi tiết:[/bold cyan]\n")
     
+    # Check if Traditional RAG answered correctly or incorrectly
+    trad_answer = trad_result.get("answer", "").lower()
+    trad_correct = "không có" in trad_answer or "không được đề cập" in trad_answer or "không có nút" in trad_answer
+    
+    if trad_correct:
+        trad_analysis = (
+            "[bold yellow]Traditional RAG (Có thể đúng nhờ LLM thông minh):[/bold yellow]\n"
+            "• Tìm thấy tài liệu về 'Cần gạt rung/chuông' (Mute switch) của iPhone 14\n"
+            "• LLM đủ thông minh để nhận ra 'Action Button' khác 'Mute Switch'\n"
+            "• Trả lời: 'iPhone 14 không có nút Action Button' hoặc tương tự\n"
+            "• ⚠️ VẤN ĐỀ: Không có cơ chế xác minh - Nếu LLM suy luận sai, không có cách kiểm tra\n"
+            "• ⚠️ VẤN ĐỀ: Phụ thuộc hoàn toàn vào kiến thức sẵn của LLM, không tìm thông tin mới\n\n"
+        )
+    else:
+        trad_analysis = (
+            "[bold red]Traditional RAG (Thất bại - Nhầm lẫn):[/bold red]\n"
+            "• Tìm thấy tài liệu về 'Cần gạt rung/chuông' (Mute switch) của iPhone 14\n"
+            "• Nhầm lẫn Action Button với Mute Switch\n"
+            "• Trả lời sai: 'Nút này nằm ở cạnh trái, bạn gạt lên/xuống để bật tắt chế độ im lặng.'\n"
+            "• Hậu quả: Trả lời sai hoàn toàn về cơ chế (gạt vs nhấn giữ) và tên gọi\n\n"
+        )
+    
     console.print(Panel(
-        "[bold red]Traditional RAG (Thất bại):[/bold red]\n"
-        "• Tìm thấy tài liệu về 'Cần gạt rung/chuông' (Mute switch) của iPhone 14\n"
-        "• Trả lời sai: 'Nút này nằm ở cạnh trái, bạn gạt lên/xuống để bật tắt chế độ im lặng.'\n"
-        "• Hậu quả: Trả lời sai hoàn toàn về cơ chế (gạt vs nhấn giữ) và tên gọi\n\n"
-        "[bold green]Corrective RAG (Thành công):[/bold green]\n"
+        trad_analysis +
+        "[bold green]Corrective RAG (Thành công - Có xác minh):[/bold green]\n"
         "• Retrieve: Lấy tài liệu về 'Cần gạt rung/chuông'\n"
         "• Evaluate: LLM đánh giá 'Action Button' khác 'Mute Switch' → Không liên quan\n"
-        "• Action: Kích hoạt Web Search\n"
-        "• Generate: Tìm thấy thông tin từ Apple.com về iPhone 15 Pro\n"
-        "• Trả lời đúng: 'Action Button là nút bấm mới thay thế cần gạt rung...'",
+        "• Action: Kích hoạt Web Search để tìm thông tin mới\n"
+        "• Generate: Tìm thấy thông tin từ web về iPhone 15 Pro\n"
+        "• Trả lời đúng: 'Action Button là nút vật lý mới trên iPhone 15 Pro...'\n"
+        "• ✅ ƯU ĐIỂM: Có cơ chế xác minh tự động qua web search\n"
+        "• ✅ ƯU ĐIỂM: Không phụ thuộc vào kiến thức sẵn của LLM",
         title="[bold]Case 1 Analysis[/bold]",
         border_style="green"
     ))
@@ -359,6 +449,7 @@ def main():
     console.print("[bold magenta]╚══════════════════════════════════════════════════════════════╝[/bold magenta]\n")
     
     console.print("[bold cyan]Các case sẽ được demo:[/bold cyan]")
+    console.print("  0. All Documents Relevant (Baseline)")
     console.print("  1. Xử lý thông tin lỗi thời (Outdated Data)")
     console.print("  2. Xử lý thông tin sai lệch/Tin đồn (Hallucinations/Myths)")
     console.print("  3. Xử lý câu hỏi so sánh (Comparative/Ambiguous Knowledge)\n")
@@ -371,6 +462,9 @@ def main():
         return
     
     try:
+        demo_case_0_all_relevant()
+        input("\n[dim]Nhấn Enter để tiếp tục Case 1...[/dim]")
+        
         demo_case_1_outdated_data()
         input("\n[dim]Nhấn Enter để tiếp tục Case 2...[/dim]")
         

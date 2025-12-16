@@ -123,7 +123,12 @@ Here is the retrieved document:
 Here is the user question:
 {question}
 
-If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant.
+IMPORTANT: Be precise about what the question is asking for:
+- If the question asks about a BUILT-IN hardware feature (e.g., "built-in projector", "máy chiếu tích hợp"), documents about screen mirroring/projection via external devices are NOT relevant
+- Distinguish between what iPhone HAS (built-in hardware) vs what iPhone CAN DO (via external devices/software)
+- Example: Question "How to use built-in projector?" vs Document "How to mirror screen to external projector" → NOT relevant (different things)
+
+If the document directly addresses what the question is asking for, grade it as relevant.
 Give a binary score 'yes' or 'no' to indicate whether the document is relevant to the question.
 
 Provide the score as a JSON with a single key 'score' and no other text or explanation.
@@ -148,9 +153,29 @@ Your response:""",
         
         answer_prompt = PromptTemplate(
             template="""You are an assistant for question-answering tasks.
-Use the following pieces of retrieved context to answer the question.
+Use the following pieces of retrieved context to answer the question comprehensively and clearly.
 If you don't know the answer, just say that you don't know.
-Use three sentences maximum and keep the answer concise.
+
+INSTRUCTIONS:
+- Provide a detailed and informative answer (4-6 sentences)
+- Include specific details about the feature: what it is, how it works, where it's located, what models have it
+- Be clear and precise in your explanation
+- Answer in Vietnamese
+
+CRITICAL RULES:
+1. When answering about hardware features (like buttons, ports, switches), be precise about whether they are physical hardware components or software UI elements.
+
+2. IMPORTANT - Distinguishing non-existent features:
+   - If the question asks about a built-in hardware feature that doesn't exist (e.g., "built-in projector", "máy chiếu tích hợp"), you MUST clarify that iPhone does NOT have this feature
+   - Do NOT confuse "screen mirroring/projection via AirPlay" with "built-in projector hardware"
+   - Example: If asked "How to use built-in projector on iPhone?", answer: "iPhone does NOT have a built-in projector. However, you can use AirPlay to mirror your screen to external projectors or TVs."
+   - Always distinguish between what iPhone CAN do (via external devices) vs what iPhone HAS (built-in hardware)
+
+3. SPECIFIC RULES FOR ACTION BUTTON:
+   - Action Button on iPhone 15 Pro/Pro Max is a PHYSICAL HARDWARE BUTTON (not a software UI element)
+   - It replaced the Mute Switch (Cần gạt rung/chuông) on iPhone 15 Pro models
+   - It is located on the left side of the device, similar to where the Mute Switch was
+   - Users can customize what action the button performs (camera, flashlight, voice memo, etc.)
 
 Question: {question}
 
