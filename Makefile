@@ -58,15 +58,3 @@ add-samples:  ## Add sample documents
 
 query-sample:  ## Run a sample query
 	uv run python cli.py query "What is Python used for?"
-
-search-sample:  ## Run a sample search
-	uv run python cli.py search "machine learning"
-
-analyze-sample:  ## Analyze chunks of a sample document
-	uv run python cli.py analyze-chunks examples/sample_documents/python_intro.txt
-
-analyze-sample-full:  ## Analyze chunks with full embedding vectors
-	uv run python cli.py analyze-chunks examples/sample_documents/python_intro.txt --show-vectors --max-chunks 10
-
-demo-chunks:  ## Run chunk analysis demo
-	uv run python demo_chunks_analysis.py

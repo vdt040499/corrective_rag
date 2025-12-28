@@ -43,7 +43,8 @@ class CorrectiveRAGSystem:
         chunk_size: int = 1000,
         chunk_overlap: int = 200,
         persist_directory: str = "./chroma_db",
-        relevance_threshold: float = 0.7,
+        relevance_threshold: Optional[float] = 0.7,
+        min_relevant_docs: Optional[int] = None,
         use_web_search: bool = True
     ):
         """
@@ -56,7 +57,11 @@ class CorrectiveRAGSystem:
             chunk_size: Size of text chunks
             chunk_overlap: Overlap between chunks
             persist_directory: Directory to persist ChromaDB
-            relevance_threshold: Threshold for document relevance (0-1)
+            relevance_threshold: Fixed threshold for document relevance (0-1). 
+                                If None, will use dynamic threshold based on min_relevant_docs.
+            min_relevant_docs: Minimum number of relevant documents required.
+                              If set, threshold will be calculated as min_relevant_docs / k.
+                              If None, will use fixed relevance_threshold.
             use_web_search: Whether to use web search as fallback
         """
         self.openai_api_key = openai_api_key or os.getenv("OPENAI_API_KEY")
@@ -66,6 +71,7 @@ class CorrectiveRAGSystem:
         self.chunk_overlap = chunk_overlap
         self.persist_directory = persist_directory
         self.relevance_threshold = relevance_threshold
+        self.min_relevant_docs = min_relevant_docs
         self.use_web_search = use_web_search
         
         # Initialize components
@@ -107,6 +113,25 @@ class CorrectiveRAGSystem:
         
         # Setup answer generation prompt
         self._setup_answer_generator()
+    
+    def _calculate_threshold(self, k: int) -> float:
+        """
+        Calculate the relevance threshold dynamically based on k (number of retrieved documents)
+        
+        Args:
+            k: Number of documents retrieved
+            
+        Returns:
+            Threshold value (0-1)
+        """
+        if self.min_relevant_docs is not None:
+            # Dynamic threshold: ensure we have at least min_relevant_docs relevant documents
+            # Threshold = min_relevant_docs / k, capped at 1.0
+            dynamic_threshold = min(1.0, self.min_relevant_docs / k) if k > 0 else 1.0
+            return dynamic_threshold
+        else:
+            # Use fixed threshold if min_relevant_docs is not set
+            return self.relevance_threshold if self.relevance_threshold is not None else 0.7
     
     def _setup_relevance_grader(self):
         """Setup the relevance grading chain"""
@@ -356,6 +381,9 @@ Answer:""",
         # Step 3: Decide on correction strategy
         relevance_ratio = len(relevant_docs) / len(retrieved_docs) if retrieved_docs else 0
         
+        # Calculate dynamic threshold based on k
+        current_threshold = self._calculate_threshold(k)
+        
         context_parts = []
         used_web_search = False
         web_search_results = None
@@ -365,7 +393,7 @@ Answer:""",
             context_parts.extend([doc.page_content for doc in relevant_docs])
         
         # If relevance is low, add web search results
-        if relevance_ratio < self.relevance_threshold and self.use_web_search:
+        if relevance_ratio < current_threshold and self.use_web_search:
             web_search_results = self.web_search_fallback(question)
             if web_search_results and "failed" not in web_search_results.lower():
                 context_parts.append(f"\n\nAdditional web search results:\n{web_search_results}")
@@ -393,6 +421,9 @@ Answer:""",
                 "relevant_count": len(relevant_docs),
                 "irrelevant_count": len(irrelevant_docs),
                 "relevance_ratio": relevance_ratio,
+                "threshold_used": current_threshold,
+                "threshold_type": "dynamic" if self.min_relevant_docs is not None else "fixed",
+                "min_relevant_docs": self.min_relevant_docs,
                 "used_web_search": used_web_search,
                 "web_search_results": web_search_results,
                 "grading_results": grading_results
@@ -467,6 +498,8 @@ Answer:""",
                 "persist_directory": self.persist_directory,
                 "system_type": "Corrective RAG",
                 "relevance_threshold": self.relevance_threshold,
+                "min_relevant_docs": self.min_relevant_docs,
+                "threshold_mode": "dynamic" if self.min_relevant_docs is not None else "fixed",
                 "web_search_enabled": self.use_web_search
             }
         except Exception as e:

@@ -2,14 +2,7 @@
 
 Hệ thống **Corrective Retrieval-Augmented Generation (CRAG)** với cơ chế tự sửa lỗi, đánh giá độ liên quan và web search fallback.
 
-## 🎯 Tính năng chính
-
-- **🔍 Đánh giá độ liên quan**: Tự động đánh giá documents có liên quan đến câu hỏi không
-- **✅ Tự sửa lỗi**: Lọc bỏ documents không liên quan trước khi tạo câu trả lời
-- **🌐 Web Search Fallback**: Tự động tìm kiếm web khi documents local không đủ
-- **📊 Diagnostics**: Hiển thị chi tiết quá trình xử lý và đánh giá
-
-## 🚀 Cài đặt
+## Cài đặt
 
 ```bash
 # Cài đặt dependencies
