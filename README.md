@@ -1,41 +1,39 @@
 # Corrective RAG Project
 
-Hệ thống **Corrective Retrieval-Augmented Generation (CRAG)** với cơ chế tự sửa lỗi, đánh giá độ liên quan và web search fallback.
+A **Corrective Retrieval-Augmented Generation (CRAG)** system with self-correction mechanisms, relevance evaluation, and web search fallback.
 
-## Cài đặt
+## Installation
 
 ```bash
-# Cài đặt dependencies
+# Install dependencies
 uv sync
 
 # Set OpenAI API key
 export OPENAI_API_KEY='your-api-key-here'
 ```
 
-## 📖 Quick Start
+## Quick Start
 
-### 1. Thêm documents
+### 1. Add Documents
 
 ```bash
 uv run python cli.py add-directory examples/sample_documents
 ```
 
-### 2. Chạy Web Demo
+### 2. Run Web Demo
 
 ```bash
 uv run streamlit run demo.py
 ```
 
-Demo sẽ hiển thị 3 cases so sánh Traditional RAG vs Corrective RAG với diagnostics chi tiết.
-
-### 3. Sử dụng CLI
+### 3. Use CLI
 
 ```bash
-# Query đơn giản
-uv run python cli.py query "Câu hỏi của bạn"
+# Simple query
+uv run python cli.py query "Your question here"
 
-# Query với diagnostics
-uv run python cli.py query "Câu hỏi của bạn" --diagnostics
+# Query with diagnostics
+uv run python cli.py query "Your question here" --diagnostics
 
 # Interactive mode
 uv run python cli.py interactive
@@ -44,14 +42,14 @@ uv run python cli.py interactive
 ### 4. REST API
 
 ```bash
-# Khởi động server
+# Start server
 uv run python main.py
 
-# API sẽ chạy tại http://localhost:8000
-# Xem docs tại http://localhost:8000/docs
+# API will run at http://localhost:8000
+# View docs at http://localhost:8000/docs
 ```
 
-## 📁 Cấu trúc Project
+## Project Structure
 
 ```
 rag-project/
@@ -66,33 +64,10 @@ rag-project/
 └── main.py                        # FastAPI server
 ```
 
-## 🔧 Cấu hình
+## Configuration
 
-Các tham số có thể điều chỉnh trong `CorrectiveRAGSystem`:
+Parameters that can be adjusted in `CorrectiveRAGSystem`:
 
-- `relevance_threshold`: Ngưỡng độ liên quan (mặc định: 0.7)
-- `use_web_search`: Bật/tắt web search fallback (mặc định: True)
-- `retriever_k`: Số lượng documents retrieve (mặc định: 4)
-
-## 📚 Tài liệu
-
-- [CORRECTIVE_RAG.md](CORRECTIVE_RAG.md) - Giải thích chi tiết về Corrective RAG
-- [OPENAI_EMBEDDINGS.md](OPENAI_EMBEDDINGS.md) - Thông tin về OpenAI embeddings
-- [QUICKSTART.md](QUICKSTART.md) - Hướng dẫn nhanh
-
-## 🎓 3 Cases Demo
-
-Demo web (`demo.py`) bao gồm 3 cases:
-
-1. **Outdated Data**: Tính năng mới không có trong DB (Action Button)
-2. **Hallucinations**: Tính năng không tồn tại (Máy chiếu tích hợp)
-3. **Comparative**: Câu hỏi so sánh giữa cũ và mới (iPhone 14 vs 15)
-
-Mỗi case hiển thị:
-- Câu trả lời của Traditional RAG vs Corrective RAG
-- Diagnostics chi tiết (documents retrieved, relevance ratio, web search status)
-- Chi tiết đánh giá từng document
-
-## 📝 License
-
-MIT License
+- `relevance_threshold`: Relevance threshold (default: 0.7)
+- `use_web_search`: Enable/disable web search fallback (default: True)
+- `retriever_k`: Number of documents to retrieve (default: 4)
